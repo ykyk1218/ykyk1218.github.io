@@ -1,6 +1,5 @@
-var CACHE_NAME = 'my-site-cache-v4';
+var CACHE_NAME = 'my-site-cache-v7';
 var urlsToCache = [
-  '/styles/main.css',
   '/js/main.js',
   'index.html'
 ];
@@ -41,7 +40,7 @@ self.addEventListener('activate', function(event) {
         keys.filter(function(key) {
           console.log(key)
           if (whitelist.indexOf(key) === -1) {
-            return caches.delete(key)
+            //return caches.delete(key)
           }
         })
       )

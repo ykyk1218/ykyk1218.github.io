@@ -1,4 +1,9 @@
 body {
   font-size: 22px;
   color: #ddd;
+
+  header {
+    background-color: #efefef;
+    height: 20px;
+  }
 }

@@ -1,0 +1,178 @@
+html,body,h1,menu,header,p,ul {
+  margin: 0px;
+  padding: 0px;
+
+}
+html,body {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+a {
+  position: relative;
+  display: inline-block;
+  color: #555;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #555;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+  }
+  &:hover::after {
+    bottom: 10px;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+
+
+body {
+  color: #999;
+
+  h2 {
+    color: #555;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    color: #777;
+    font-weight: lighter;
+  }
+
+  header {
+    height: 30px;
+    border-bottom: 1px solid #efefef;
+
+    .my-word {
+      padding: 5px;
+      line-height: 1.3;
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: lighter;
+    }
+
+    menu {
+      position: absolute;
+      right: 20px;
+      display: inline-block;
+      line-height: 1.9;
+      menuitem {
+        font-size: 0.8rem;
+        padding-right: 15px;
+        &:last-child {
+          padding-right: 0;
+        }
+        a {
+          &:hover::after {
+            bottom: 3px;
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+
+  main {
+    height: 100%;
+
+    .name {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-flow: column nowrap;
+
+      h1 {
+        color: #666;
+        font-size: 2.0rem;
+        font-weight: lighter;
+      }
+      .job {
+        color: #bbb;
+      }
+
+    }
+
+    .skill {
+      font-size: 1.2rem;
+      @media screen and (max-width: 320px) {
+      }
+      .ability {
+        width: 810px;
+        margin: auto;
+
+        .category {
+
+        }
+        .skill-box {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, 270px);
+          grid-auto-rows: 200px;
+          margin-bottom: 100px;
+
+          i {
+            font-size: 3.0rem;
+            padding-right: 5px;
+          }
+
+          .programming {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+          }
+        }
+
+        @media screen and (max-width: 550px) {
+          width: 100%;
+          padding: 20px;
+          .skill-box {
+            grid-template-columns: repeat(auto-fit, 150px);
+          }
+        }
+      }
+    }
+
+    .contact {
+      .contact-box {
+        width: 810px;
+        margin: auto;
+
+        ul {
+          list-style-type: none;
+          display: flex;
+          justify-content: space-between;
+
+          li {
+            line-height: 3.5;
+            font-size: 1.2rem;
+
+          }
+        }
+      }
+
+      @media screen and (max-width: 550px) {
+        .contact-box  {
+          width: calc(100% - 25px);
+          ul {
+            li {
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
