@@ -34,7 +34,7 @@ self.addEventListener('fetch', function(event) {
 })
 
 
-//activate
+//更新されると実行されるイベント
 var whitelist = [CACHE_NAME]
 self.addEventListener('activate', function(event) {
   event.waitUntil(
