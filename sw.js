@@ -1,7 +1,10 @@
-var CACHE_NAME = 'my-site-cache-v7';
+var CACHE_NAME = 'my-site-cache-v9';
 var urlsToCache = [
   '/js/main.js',
-  'index.html'
+  'index.html',
+  '/',
+  'css/main.css',
+  'images/niwatori.png'
 ];
 
 self.addEventListener('install', function(event) {
