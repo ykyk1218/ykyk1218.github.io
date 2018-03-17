@@ -51,3 +51,13 @@ self.addEventListener('activate', function(event) {
     })
   )
 })
+
+self.addEventListener('message', function(event) {
+  fetch(new Request(event.data, {mode: 'no-cors'})).then(function(response) {
+    caches.open(CACHE_NAME).then(function(cache) {
+      cache.put(event.data, response)
+    })
+  }).then(function() {
+    
+  })
+})

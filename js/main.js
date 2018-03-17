@@ -8,3 +8,12 @@ if ('serviceWorker' in navigator) {
     console.log('ServiceWorker registration failed: ', err);
   });
 }
+
+
+window.onload = function() {
+  target = document.querySelector(".next")
+  target.addEventListener('mousedown', function(event) {
+    console.log("mouseover")
+    navigator.serviceWorker.controller.postMessage('/list.html')
+  })
+}
