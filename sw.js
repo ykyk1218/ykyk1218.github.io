@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v9';
+var CACHE_NAME = 'my-site-cache-v12';
 var urlsToCache = [
   '/js/main.js',
   'index.html',
@@ -24,8 +24,9 @@ self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
+        console.log(response)
         if(response) {
-          console.log("return response")
+          console.log(caches)
           return response
         }
         return fetch(event.request)
@@ -43,7 +44,7 @@ self.addEventListener('activate', function(event) {
         keys.filter(function(key) {
           console.log(key)
           if (whitelist.indexOf(key) === -1) {
-            //return caches.delete(key)
+            return caches.delete(key)
           }
         })
       )
