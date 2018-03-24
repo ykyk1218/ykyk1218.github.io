@@ -64,16 +64,42 @@ self.addEventListener('message', function(event) {
 
 
 self.addEventListener('sync', function(event) {
+  console.log("start sync event")
   if(event.tag == 'send-talk') {
     event.waitUntil(
-      getMessage(event.tag)
+      getMessage(1).then(sendRequest).then(function() {
+        //return deleteMessage(1)
+        console.log("delete message")
+      })
     ) 
   }
 })
 
+function sendRequest(request) {
+  if(!request) {
+    return Promise.resolve()
+  }
+  var formData = new FormData()
+  formData.append("talk", request.talk)
+  var url ="https://6ipk0tf0e5.execute-api.ap-northeast-1.amazonaws.com/prod"
+  return fetch(new Request(url, {
+    method: 'POST',
+    body: formData,
+    credentials: 'include'
+  }))
+}
+
 
 function getMessage(id) {
-  return openDatabase().then(function(db) {
-
+  return openIndexedDb("send_queue", 1).then(function(db) {
+    return new Promise(function(resolve, reject) {
+      var transaction = db.transaction(STORE_NAME, 'readonly')
+      var store = transaction.objectStore(STORE_NAME)
+      var req = store.get(id)
+      req.onsuccess = function() {
+        resolve(req.result)
+      }
+      req.onerror = reject
+    })
   })
 }

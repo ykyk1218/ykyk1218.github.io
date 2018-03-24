@@ -73,11 +73,15 @@
     }
 
     function sendMessageWithSync(data, url) {
-      addIndexedDb(data).then(function(result) {
-        return navigator.serviceWorker.ready.then(function(reg) {
-          return reg.sync.register('send-talk')
-        })
+      console.log("regist sync")
+      navigator.serviceWorker.ready.then(function(reg){
+        reg.sync.register('send-talk')
       })
+      //addIndexedDb(data).then(function(result) {
+      //  return navigator.serviceWorker.ready.then(function(reg) {
+      //    return reg.sync.register('send-talk')
+      //  })
+      //})
     }
 
 
