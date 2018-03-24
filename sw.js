@@ -61,3 +61,19 @@ self.addEventListener('message', function(event) {
     
   })
 })
+
+
+self.addEventListener('sync', function(event) {
+  if(event.tag == 'send-talk') {
+    event.waitUntil(
+      getMessage(event.tag)
+    ) 
+  }
+})
+
+
+function getMessage(id) {
+  return openDatabase().then(function(db) {
+
+  })
+}

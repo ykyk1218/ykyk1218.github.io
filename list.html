@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>This is Template</title>
-  <script src="js/main.js"></script>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/font-mfizz/font-mfizz.css" />
+  <script src="js/main.js"></script>
 
 </head>
 <body>
@@ -23,6 +23,13 @@
       <p>バッググランドでこのページが読み込まれるか</p>
     </div>
 
+    <div>
+      <form id="post-slack" name="post-slack">
+        <input type="text" id="talk" value="" />
+        <input type="button" id="btn-submit" value="送信">
+      </form>
+    </div>
+
     <h2 id="contact">Contact</h2>
     <div class="contact">
       <div class="contact-box">
@@ -35,6 +42,46 @@
       </div>
     </div>
   </main>
+  <script>
+    var submit = document.querySelector("#btn-submit")
+    submit.addEventListener("click", send)
+
+    function send() {
+      var value = document.getElementById("talk").value
+      frm = document.getElementById("post-slack")
+      var url ="https://6ipk0tf0e5.execute-api.ap-northeast-1.amazonaws.com/prod"
+
+
+      if(navigator.serviceWorker && window.SyncManager) {
+        sendMessageWithSync({"talk": value}, url)  
+      }
+
+
+
+      /*
+      var xhr = new XMLHttpRequest()
+      xhr.open("POST", url, true)
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+        if(xhr.status == 200) {
+        }else{
+          alert("ng")
+        }
+      }
+      xhr.send("talk=" + value)
+      */
+    }
+
+    function sendMessageWithSync(data, url) {
+      addIndexedDb(data).then(function(result) {
+        return navigator.serviceWorker.ready.then(function(reg) {
+          return reg.sync.register('send-talk')
+        })
+      })
+    }
+
+
+  </script>
 </body>
 </html>
 
