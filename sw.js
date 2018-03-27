@@ -80,18 +80,17 @@ self.addEventListener('sync', function(event) {
           myHeaders.append('Content-Type', 'application/x-www-form-urlencoded')
           //formData.append("talk", request.talk)
           formData.append("talk", "hoge")
-          console.log(formData)
+          console.log(3)
           var url ="https://6ipk0tf0e5.execute-api.ap-northeast-1.amazonaws.com/prod"
-          var data = {
-            "talk": "Yo!"
-          }
-          return fetch(new Request(url, {
+          var data = {"talk": "Hoge"}
+          console.log(JSON.stringify(data))
+          return fetch(url, {
             method: 'POST',
-            body: data,
+            body: JSON.stringify(data),
             credentials: 'include',
             mode: 'no-cors',
             headers: {'content-type': 'application/json'}
-          }))
+          })
         })
         .then(function() {
           //return deleteMessage(1)
