@@ -82,7 +82,7 @@ self.addEventListener('sync', function(event) {
           formData.append("talk", "hoge")
           console.log(3)
           var url ="https://6ipk0tf0e5.execute-api.ap-northeast-1.amazonaws.com/prod"
-          var data = {"talk": "Hoge"}
+          var data = {"talk": request.value.talk}
           console.log(JSON.stringify(data))
           return fetch(url, {
             method: 'POST',
@@ -125,9 +125,10 @@ function getMessage(id) {
     return new Promise(function(resolve, reject) {
       var transaction = db.transaction(STORE_NAME, 'readonly')
       var store = transaction.objectStore(STORE_NAME)
-      var req = store.get(id)
-      req.onsuccess = function() {
-        resolve(req.result)
+      var req = store.openCursor(null, 'prev')
+      req.onsuccess = function(event) {
+        var cursor = event.target.result
+        resolve(cursor)
       }
       req.onerror = reject
     })
