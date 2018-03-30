@@ -61,6 +61,40 @@ body {
           bottom: 3px;
           opacity: 1;
           visibility: visible; }
+  body main#list h1 {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-weight: lighter; }
+  body main#list .articles {
+    width: 810px;
+    margin: auto; }
+    body main#list .articles ul {
+      line-height: 3.5; }
+    body main#list .articles h3 {
+      margin-top: 40px; }
+    body main#list .articles .qiita-articles {
+      margin-bottom: 100px; }
+  body main#list .slack {
+    width: 810px;
+    margin: auto;
+    margin-top: 100px; }
+    body main#list .slack input[type="text"] {
+      -webkit-appearance: none;
+      height: 37px;
+      width: 200px;
+      border-radius: 10px;
+      border: 1px solid #ddd; }
+    body main#list .slack input[type="button"] {
+      width: 100px;
+      border-style: none;
+      font-size: 1.2rem;
+      padding: 5px;
+      border: 1px solid #ddd;
+      transition: .4s; }
+      body main#list .slack input[type="button"]:hover {
+        background-color: #efefef;
+        border: 1px solid #ddd;
+        cursor: pointer; }
   body main {
     height: 100%; }
     body main .name {
