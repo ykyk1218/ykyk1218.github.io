@@ -85,6 +85,54 @@ body {
     }
   }
 
+  main#list {
+    h1 {
+      padding-top: 50px;
+      padding-bottom: 50px;
+      font-weight: lighter;
+    }
+    .articles {
+      width: 810px;
+      margin: auto;
+        ul {
+          line-height: 3.5;
+        }
+      h3 {
+        margin-top: 40px;
+      }
+      .qiita-articles {
+        margin-bottom: 100px;
+      }
+    }
+
+    .slack {
+      width: 810px;
+      margin: auto;
+      margin-top: 100px;
+      input[type="text"] {
+        -webkit-appearance: none;
+        height: 37px;
+        width: 200px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+      }
+      input[type="button"] {
+        width: 100px;
+        border-style: none;
+        font-size: 1.2rem;
+        padding: 5px;
+        border: 1px solid #ddd;
+        transition: .4s;
+
+        &:hover {
+          background-color: #efefef;
+          border: 1px solid #ddd;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   main {
     height: 100%;
 

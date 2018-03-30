@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>This is Template</title>
-  <script src="js/main.js"></script>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/font-mfizz/font-mfizz.css" />
+  <script src="js/main.js"></script>
 
 </head>
 <body>
@@ -18,9 +18,37 @@
       <menuitem><a href="#contact">contact</a></menuitem>
     </menu>
   </header>
-  <main>
-    <div>
-      <p>バッググランドでこのページが読み込まれるか</p>
+  <main id="list">
+    <h1 style="text-align: center;">ykyky1218が書いた記事一覧</h1>
+    <div class="articles">
+      <h3>Qiita記事</h3>
+      <div class="qiita-articles">
+        <ul>
+          <li><a href="https://qiita.com/ykyk1218/items/0f5858d077d43a49cfe2" target="_blank">console.logまとめ 2016年夏</a></li>
+          <li><a href="https://qiita.com/ykyk1218/items/89c0bb5f82ebe43176a8" target="_blank">知っていると少し幸せになれる、Chrome検証機能の小技まとめ</a></li>
+          <li><a href="https://qiita.com/ykyk1218/items/df39a6020601647fc660" target="_blank">SEO対策に役立つかもしれない、普段あまり注目されていないタグたちまとめ(HTML 5.1版)</a></li>
+          <li><a href="https://qiita.com/ykyk1218/private/13a253a081d329d23292" target="_blank">CSSだけで棒人間をアニメーションさせて楽しむ</a></li>
+          <li><a href="https://qiita.com/ykyk1218/items/d5086dcb7618d4f918ec" target="_blank">すぐ忘れるので、RubyとRailsの日付操作周りについてまとめました</a></li>
+        </ul>
+      </div>
+      <h3>ブログ記事</h3>
+      <div class="blog-articles">
+        <ul>
+          <li><a href="https://tech.basicinc.jp/articles/108" target="_blank">より良いエンジニアの組織をつくるためには2018</a></li>
+          <li><a href="https://tech.basicinc.jp/articles/75" target="_blank">10年以上続くサイトを初めてリニューアルして感じた事</a></li>
+          <li><a href="https://tech.basicinc.jp/articles/76" target="_blank">技術的負債に立ち向かうための心構え</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <div class="slack">
+      <h3>スラックに投稿してみるテキストボックス</h3>
+      <div>
+        <form id="post-slack" name="post-slack">
+          <input type="text" id="talk" value="" />
+          <input type="button" id="btn-submit" value="送信">
+        </form>
+      </div>
     </div>
 
     <h2 id="contact">Contact</h2>
@@ -35,6 +63,50 @@
       </div>
     </div>
   </main>
+  <script>
+    var submit = document.querySelector("#btn-submit")
+    submit.addEventListener("click", send)
+
+    function send() {
+      var value = document.getElementById("talk").value
+      frm = document.getElementById("post-slack")
+      var url ="https://6ipk0tf0e5.execute-api.ap-northeast-1.amazonaws.com/prod"
+
+
+      if(navigator.serviceWorker && window.SyncManager) {
+        sendMessageWithSync({"talk": value}, url)  
+      }
+
+
+
+      /*
+      var xhr = new XMLHttpRequest()
+      xhr.open("POST", url, true)
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+        if(xhr.status == 200) {
+        }else{
+          alert("ng")
+        }
+      }
+      xhr.send("talk=" + value)
+      */
+    }
+
+    function sendMessageWithSync(data, url) {
+      //console.log("regist sync")
+      //navigator.serviceWorker.ready.then(function(reg){
+      //  reg.sync.register('send-talk')
+      //})
+      addIndexedDb(data).then(function(result) {
+        return navigator.serviceWorker.ready.then(function(reg) {
+          return reg.sync.register('send-talk')
+        })
+      })
+    }
+
+
+  </script>
 </body>
 </html>
 

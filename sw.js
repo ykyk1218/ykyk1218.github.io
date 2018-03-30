@@ -1,4 +1,5 @@
 var CACHE_NAME = 'my-site-cache-v12';
+var STORE_NAME = 'message'
 var urlsToCache = [
   '/js/main.js',
   'index.html',
@@ -61,3 +62,91 @@ self.addEventListener('message', function(event) {
     
   })
 })
+
+
+self.addEventListener('sync', function(event) {
+  console.log("start sync event")
+  if(event.tag == 'send-talk') {
+    event.waitUntil(
+      getMessage(1)
+        .then(function(request) {
+          console.log("sendRequest")
+          console.log(request)
+          if(!request) {
+            return Promise.resolve()
+          }
+          var formData = new FormData()
+          var myHeaders = new Headers()
+          myHeaders.append('Content-Type', 'application/x-www-form-urlencoded')
+          //formData.append("talk", request.talk)
+          formData.append("talk", "hoge")
+          console.log(3)
+          var url ="https://6ipk0tf0e5.execute-api.ap-northeast-1.amazonaws.com/prod"
+          var data = {"talk": request.value.talk}
+          console.log(JSON.stringify(data))
+          return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            credentials: 'include',
+            mode: 'no-cors',
+            headers: {'content-type': 'application/json'}
+          })
+        })
+        .then(function() {
+          //return deleteMessage(1)
+          console.log("delete message")
+        })
+    ) 
+  }
+})
+
+/*
+function sendRequest(request) {
+  console.log("sendRequest")
+  console.log(request)
+  if(!request) {
+    return Promise.resolve()
+  }
+  var formData = new FormData()
+  formData.append("talk", request.talk)
+  var url ="https://6ipk0tf0e5.execute-api.ap-northeast-1.amazonaws.com/prod"
+  return fetch(new Request(url, {
+    method: 'POST',
+    body: formData,
+    credentials: 'include'
+  }))
+}
+*/
+
+
+function getMessage(id) {
+  console.log("getMessage")
+  return openIndexedDb("send_queue", 1).then(function(db) {
+    return new Promise(function(resolve, reject) {
+      var transaction = db.transaction(STORE_NAME, 'readonly')
+      var store = transaction.objectStore(STORE_NAME)
+      var req = store.openCursor(null, 'prev')
+      req.onsuccess = function(event) {
+        var cursor = event.target.result
+        resolve(cursor)
+      }
+      req.onerror = reject
+    })
+  })
+}
+
+
+function openIndexedDb(dbName, version) {
+  return new Promise(function(resolve, reject) {
+    var request = indexedDB.open(dbName, version)
+
+    request.onupgradeneeded = function(event) {
+      var db = event.target.result
+      var objectStore = db.createObjectStore(STORE_NAME, {keyPath: "id", autoIncrement: true})
+    }
+    request.onerror = reject
+    request.onsuccess = function(event) {
+      resolve(request.result)
+    }
+  })
+}
