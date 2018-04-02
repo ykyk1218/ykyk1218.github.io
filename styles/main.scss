@@ -34,6 +34,22 @@ a {
   }
 }
 
+button.next { 
+  background-color: #f2fcff;
+  border: dashed 1px #67c5ff;
+  color: #67c5ff;
+  cursor: pointer;
+  outline: none;
+  padding: 10px;
+  appearance: none;
+  transition: .4s;
+
+  &:hover {
+    background: #cbedff;
+    color: #fff;
+  }
+}
+
 
 
 body {

@@ -28,6 +28,19 @@ a {
     opacity: 1;
     visibility: visible; }
 
+button.next {
+  background-color: #f2fcff;
+  border: dashed 1px #67c5ff;
+  color: #67c5ff;
+  cursor: pointer;
+  outline: none;
+  padding: 10px;
+  appearance: none;
+  transition: .4s; }
+  button.next:hover {
+    background: #cbedff;
+    color: #fff; }
+
 body {
   color: #999; }
   body h2 {
