@@ -41,14 +41,6 @@
       </div>
     </div>
     <hr />
-    <div class="slack">
-      <h3>スラックに投稿してみるテキストボックス（設定しているURLが適当なため、動きません）</h3>
-      <div>
-        <form id="post-slack" name="post-slack">
-          <input type="text" id="talk" value="" />
-          <input type="button" id="btn-submit" value="送信">
-        </form>
-      </div>
     </div>
 
     <h2 id="contact">Contact</h2>
@@ -63,31 +55,6 @@
       </div>
     </div>
   </main>
-  <script>
-    var submit = document.querySelector("#btn-submit")
-    submit.addEventListener("click", send)
-
-    function send() {
-      var value = document.getElementById("talk").value
-      frm = document.getElementById("post-slack")
-      var url ="https://6ipk0tf0e5.execute-api.ap-northeast-1.amazonaws.com/prod"
-
-
-      if(navigator.serviceWorker && window.SyncManager) {
-        sendMessageWithSync({"talk": value}, url)  
-      }
-    }
-
-    function sendMessageWithSync(data, url) {
-      addIndexedDb(data).then(function(result) {
-        return navigator.serviceWorker.ready.then(function(reg) {
-          return reg.sync.register('send-talk')
-        })
-      })
-    }
-
-
-  </script>
 </body>
 </html>
 
